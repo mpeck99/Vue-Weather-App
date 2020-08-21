@@ -5,8 +5,11 @@
         <label for="name">Location</label>
         <input type="text" name="search" id="search" placeholder="Search" v-model="query" @keypress="fetchForecast">
       </div>
-      <div class="weather-cards" v-if="typeof weather.main !='undefied'">
-        {{weather.name}}
+      <!-- {{weather.city.name}} -->
+      <div class="weather-cards" v-for="weather in weatherData" :key="weather.list">
+        <div class="card">
+          <h2>{{weather.main.temp}}</h2>
+        </div>
       </div>
     </main>
   </div>
@@ -20,24 +23,24 @@ export default {
     return {
       api_key : '4de4a8d80078d333a4a72f1c11d87820',
       forecast_url: 'https://api.openweathermap.org/data/2.5/',
-      weather : {},
+      weatherData : [],
       query: '',
     }
   },
   methods: {
     fetchForecast(e){
       if(e.key === "Enter"){
-        fetch(`${this.forecast_url}forecast?q=${this.query},us&appid=${this.api_key}`)
+        fetch(`${this.forecast_url}forecast?q=${this.query},us&appid=${this.api_key}&units=imperial`)
           .then(res => {
             return res.json();
-            
           }).then(this.storeData);
       }
     },
 
     storeData(data) {
-      console.log(data.list[1].weather[0].main);
-      this.weather = data;
+      for(var i = 0; i < data.list.length; i+=8){
+        this.weatherData.push(data.list[i]);
+      }
     }
   },
 }
