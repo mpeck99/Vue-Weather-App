@@ -1,24 +1,20 @@
 <template>
   <div id="app">
-    <main>
-      <div class="search">
+
+      <div class="form-group">
         <label for="name">Location</label>
         <input type="text" name="search" id="search" placeholder="Search" v-model="query" @keyup.enter="fetchForecast">
         <button @click="fetchForecast" class="searchBtn">Search</button>
       </div>
-      <div class="weather-cards" v-for="weather in weatherData" :key="weather.list">
-        <div class="card">
-          <p>{{weather.dt_txt}}</p>
-          <img v-bind:src="'https://openweathermap.org/img/w/' + weather.weather[0].icon +'.png'">
-          <h2>{{weather.weather[0].main}}</h2>
-          <p>{{weather.weather[0].description}}</p>
-          <ul>
-            <li>{{weather.main.temp_min}}</li>
-            <li>{{weather.main.temp_max}}</li>
-          </ul>
+      <div class="card-wrapper" >
+        <div class="card" v-for="weather in weatherData" :key="weather.list">
+          <time>{{weather.dt_txt}}</time>
+          <p class="temp">{{weather.main.temp}}</p>
+          <p>{{weather.weather[0].main}}</p>
+          <p class="temp">Feels like {{weather.main.feels_like}}</p>
         </div>
       </div>
-    </main>
+
   </div>
 </template>
 
@@ -51,12 +47,16 @@ export default {
       
       //looping through the weatherDate array to fix temps and dates
       for(var x = 0; x < this.weatherData.length; x++){
-        var dateMin = parseInt(this.weatherData[x].main.temp_min);
-        var dateMax = parseInt(this.weatherData[x].main.temp_max);
-        var date = new Date(this.weatherData[x].dt_txt.split(" ")[0]).toDateString();
+        const temp = parseInt(this.weatherData[x].main.temp),
+              tempMin = parseInt(this.weatherData[x].main.temp_min),
+              tempMax = parseInt(this.weatherData[x].main.temp_max),
+              feelsLike = parseInt(this.weatherData[x].main.feels_like),
+              date = new Date(this.weatherData[x].dt_txt.split(" ")[0]).toDateString().split(' 2020')[0];
 
-        this.weatherData[x].main.temp_min = dateMin;
-        this.weatherData[x].main.temp_max = dateMax;
+        this.weatherData[x].main.temp = temp;
+        this.weatherData[x].main.temp_min = tempMin;
+        this.weatherData[x].main.temp_max = tempMax;
+        this.weatherData[x].main.feels_like = feelsLike;
         this.weatherData[x].dt_txt = date;
       }
     }
@@ -65,12 +65,70 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    * {
+        box-sizing: border-box;
+    }
+  html, body {
+    height: 100%;
+
+    padding: 0;
+    margin: 0;
+
+    font-size: 16px;
+  }
+
+  #app {
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 6rem 1fr;
+
+    padding: 1rem;
+
+    font-family: 'Dosis', sans-serif;
+  }
+
+  .form-group {
+    /* grid-column: 1/2; */
+    grid-row: 1 / 2;
+    justify-self: center;
+    align-self: flex-end;
+  }
+
+  .card-wrapper {
+    width: 90%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-self: center;
+    align-self: center;
+    grid-column: 1;
+    grid-row: 2 / 3;
+  }
+
+  .card {
+    width: 10rem;
+    height: 18rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  
+    margin: 1rem;
+  }
+
+  .temp {
+    position: relative;
+  }
+
+  .temp::after {
+    /* content:; */
+
+    position: absolute;
+  }
+
 </style>
