@@ -1,20 +1,24 @@
 <template>
   <div id="app">
-
+    <h1>5 day forecast</h1>
+    <section>
       <div class="form-group">
-        <label for="name">Location</label>
+        <label for="search">Location</label>
         <input type="text" name="search" id="search" placeholder="Search" v-model="query" @keyup.enter="fetchForecast">
         <button @click="fetchForecast" class="searchBtn">Search</button>
       </div>
       <div class="card-wrapper" >
         <div class="card" v-for="weather in weatherData" :key="weather.list">
           <time>{{weather.dt_txt}}</time>
-          <p class="temp">{{weather.main.temp}}</p>
-          <p>{{weather.weather[0].main}}</p>
+          <div class="status">
+            <p class="temp">{{weather.main.temp}}</p>
+            <img v-bind:src="require(`${weather.weather[0].icon}`)">
+            <p>{{weather.weather[0].description}}</p>
+          </div>
           <p class="temp">Feels like {{weather.main.feels_like}}</p>
         </div>
       </div>
-
+    </section> 
   </div>
 </template>
 
@@ -53,6 +57,30 @@ export default {
               feelsLike = parseInt(this.weatherData[x].main.feels_like),
               date = new Date(this.weatherData[x].dt_txt.split(" ")[0]).toDateString().split(' 2020')[0];
 
+        //replacing the icon from the api with an svg
+        if(this.weatherData[x].weather[0].icon == "01d" || this.weatherData[x].weather[0].icon == "01n"){
+          this.weatherData[x].weather[0].icon = './assets/icn-sunny.svg';
+        }
+        
+        else if(this.weatherData[x].weather[0].icon == "02d" || this.weatherData[x].weather[0].icon == "02n"){
+          this.weatherData[x].weather[0].icon = './assets/icn-partly-cloudy.svg';
+        }
+
+        else if(this.weatherData[x].weather[0].icon == "03d" || this.weatherData[x].weather[0].icon == "03n" || this.weatherData[x].weather[0].icon == "04d" || this.weatherData[x].weather[0].icon == "04n") {
+          this.weatherData[x].weather[0].icon = './assets/icn-cloudy.svg';
+        }
+
+        else if(this.weatherData[x].weather[0].icon == "09d" || this.weatherData[x].weather[0].icon == "09n"){
+          this.weatherData[x].weather[0].icon = './assets/icn-light-rain.svg';
+        }
+
+        else if(this.weatherData[x].weather[0].icon == "10d" || this.weatherData[x].weather[0].icon == "10n"){
+          this.weatherData[x].weather[0].icon = './assets/icn-hvy-rain.svg';
+        }
+        else if(this.weatherData[x].weather[0].icon == "11d" || this.weatherData[x].weather[0].icon == "11n"){
+          this.weatherData[x].weather[0].icon = './assets/icn-thunderstorm.svg';
+        }
+        
         this.weatherData[x].main.temp = temp;
         this.weatherData[x].main.temp_min = tempMin;
         this.weatherData[x].main.temp_max = tempMax;
@@ -75,10 +103,30 @@ export default {
     margin: 0;
 
     font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    text-transform: capitalize;
+    
+  background-color: #FF6B6B;
+   
+  }
+  #app {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h1 {
+    margin-bottom: 0;
+
+    font-family: 'Roboto', sans-serif;
   }
 
-  #app {
-    min-height: 100vh;
+  p {
+    margin: 0;
+  }
+
+  section {
+    flex-grow: 1;
 
     display: grid;
     grid-template-columns: 100%;
@@ -86,14 +134,12 @@ export default {
 
     padding: 1rem;
 
-    font-family: 'Dosis', sans-serif;
+    
   }
-
   .form-group {
-    /* grid-column: 1/2; */
     grid-row: 1 / 2;
     justify-self: center;
-    align-self: flex-end;
+    align-self: center;
   }
 
   .card-wrapper {
@@ -110,15 +156,24 @@ export default {
   }
 
   .card {
-    width: 10rem;
+    width: 12rem;
     height: 18rem;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto auto;
     align-items: center;
-  
     margin: 1rem;
+
+    text-align: center;
+
+    border-radius: 0.25rem;
+    
+     background-color: #F7FFF7;
+  }
+
+  .status .temp {
+    font-size: 2.5rem;
   }
 
   .temp {
@@ -126,9 +181,12 @@ export default {
   }
 
   .temp::after {
-    /* content:; */
+    content: '\00b0';
 
     position: absolute;
+    top: .09rem;
+
+    margin-left: 0.1rem;
   }
 
 </style>
