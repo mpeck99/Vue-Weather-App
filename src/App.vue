@@ -36,6 +36,7 @@ export default {
           }).then(this.storeData);
       }
     },
+      //clearing the data array when a new search is done
 
     storeData(data) {
       for(var i = 0; i < data.list.length; i+=8){
