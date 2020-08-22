@@ -8,7 +8,7 @@
       <!-- {{weather.city.name}} -->
       <div class="weather-cards" v-for="weather in weatherData" :key="weather.list">
         <div class="card">
-          <h2>{{weather.main.temp}}</h2>
+          <p>{{weather.weather[0].description}}</p>
         </div>
       </div>
     </main>
