@@ -3,7 +3,7 @@
     <main>
       <div class="search">
         <label for="name">Location</label>
-        <input type="text" name="search" id="search" placeholder="Search" v-model="query" @keypress="fetchForecast">
+        <button @click="fetchForecast" class="searchBtn">Search</button>
       </div>
       <!-- {{weather.city.name}} -->
       <div class="weather-cards" v-for="weather in weatherData" :key="weather.list">
