@@ -95,9 +95,10 @@ export default {
 </script>
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
+  * {
+    box-sizing: border-box;
+  }
+
   html, body {
     height: 100%;
 
@@ -108,19 +109,31 @@ export default {
     font-family: 'Lato', sans-serif;
     text-align: center;
     text-transform: capitalize;
+    color: #f5f5f5;
     
-  background-color: #FF6B6B;
-   
+    background-color: #023e7d;  
   }
+
   #app {
+    min-height: 100%;
+    width: 90%;
+
+    margin: 0 auto;
+    padding: 1rem 0;
+
     display: flex;
     flex-direction: column;
   }
   
-  h1 {
+  h1, h2 {
     margin-bottom: 0;
 
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif; 
+  }
+
+  h2 {
+    margin-top: 3rem;
+    margin-bottom: 0;
   }
 
   p {
@@ -128,33 +141,66 @@ export default {
   }
 
   section {
-    flex-grow: 1;
+    height: 100%;
+    width: 100%;
 
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 6rem 1fr;
-
-    padding: 1rem;
-
-    
+    display: flex; 
+    flex-direction: column;
   }
+
   .form-group {
+    max-width: 90%;
+
+    display: flex;
+    align-items: stretch;
+    flex: 1;
     grid-row: 1 / 2;
     justify-self: center;
     align-self: center;
+
+    margin-top: 1rem;
+
+    font-family: 'lato', sans-serif;
   }
 
+  input {
+    width: 30rem;
+    height: 2.5rem;
+
+    padding: 1rem;
+
+    border-radius: 0.25rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: none;
+  }
+
+  button {
+    height: 2.5rem;
+    width: 5.5rem;
+
+    color: #f5f5f5;
+    font-size: 1rem;
+    
+    background-color: #ff6666;
+    border-radius: 0.25rem;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border: none;;
+  }
+
+
   .card-wrapper {
-    width: 90%;
+    width: 100%;  
+    height: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    justify-self: center;
+    flex-wrap: wrap;    
     align-self: center;
-    grid-column: 1;
-    grid-row: 2 / 3;
+
+    color: #333;
   }
 
   .card {
@@ -170,12 +216,35 @@ export default {
     text-align: center;
 
     border-radius: 0.25rem;
-    
-     background-color: #F7FFF7;
+    background-color: #f5f5f5;
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+    -webkit-box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12); 
+     
   }
 
   .status .temp {
     font-size: 2.5rem;
+  }
+
+  .status-icn {
+    scale: 2;
   }
 
   .temp {
