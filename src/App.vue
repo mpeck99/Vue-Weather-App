@@ -3,7 +3,7 @@
     <h1>5 day forecast</h1>
     <section aria-label="Search for your a five day forecast">
       <div class="form-group">
-        <label for="search">Location</label>
+        <label for="search" class="sr-only">Location</label>
         <input type="text" name="search" id="search" placeholder="Search" v-model="query" @keyup.enter="fetchForecast">
         <button @click="fetchForecast" class="searchBtn">Search</button>
       </div>
@@ -187,6 +187,15 @@ export default {
     top: .09rem;
 
     margin-left: 0.1rem;
+  }
+
+  .sr-only {
+    position: absolute ;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    top: auto;
+    overflow: hidden;
   }
 
 </style>
