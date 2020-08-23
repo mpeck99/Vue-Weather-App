@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>5 day forecast</h1>
-    <section>
+    <section aria-label="Search for your a five day forecast">
       <div class="form-group">
         <label for="search">Location</label>
         <input type="text" name="search" id="search" placeholder="Search" v-model="query" @keyup.enter="fetchForecast">
