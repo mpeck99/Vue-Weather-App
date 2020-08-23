@@ -7,6 +7,7 @@
         <input type="text" name="search" id="search" placeholder="Search" v-model="query" @keyup.enter="fetchForecast">
         <button @click="fetchForecast" class="searchBtn">Search</button>
       </div>
+      <h2>{{location}}</h2>
       <div class="card-wrapper" >
         <div class="card" v-for="weather in weatherData" :key="weather.list">
           <time>{{weather.dt_txt}}</time>
@@ -31,6 +32,7 @@ export default {
       forecast_url: 'https://api.openweathermap.org/data/2.5/',
       weatherData : [],
       query: '',
+      location: '',
     }
   },
   methods: {
@@ -43,7 +45,7 @@ export default {
     storeData(data) {
       //clearing the data array when a new search is done
       this.weatherData = [];
-
+      this.location = data.city.name;
       //looping through the data.list to only return the 5 day forecast and not the data for every 3 hours
       for(var i = 0; i < data.list.length; i+=8){
         this.weatherData.push(data.list[i]);
