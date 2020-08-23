@@ -13,7 +13,7 @@
           <time>{{weather.dt_txt}}</time>
           <div class="status">
             <p class="temp">{{weather.main.temp}}</p>
-            <img v-bind:src="require(`${weather.weather[0].icon}`)">
+            <img v-bind:src="require(`${weather.weather[0].icon}`)" class="status-icn" v-bind:alt="`${weather.dt_txt} ${weather.weather[0].description}`">
             <p>{{weather.weather[0].description}}</p>
           </div>
           <p class="temp">Feels like {{weather.main.feels_like}}</p>
