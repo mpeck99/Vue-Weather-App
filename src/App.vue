@@ -4,12 +4,66 @@
     <section aria-label="Search for your a five day forecast">
       <div class="form-group">
         <label for="search" class="sr-only">Location</label>
-        <input type="text" name="search" id="search" placeholder="Search" v-model="query" @keyup.enter="fetchForecast">
+        <input type="text" name="search" id="search" placeholder="City" v-model="city_query" @keyup.enter="fetchForecast">
+        <select v-model="state_query" @keyup.enter="fetchForecast" placeholder="State">
+          <option value="" class="disabled selected">State</option>
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arkansas</option>
+          <option value="CA">California</option>
+          <option value="CO">Colorado</option>
+          <option value="CT">Connecticut</option>
+          <option value="DE">Delaware</option>
+          <option value="DC">District Of Columbia</option>
+          <option value="FL">Florida</option>
+          <option value="GA">Georgia</option>
+          <option value="HI">Hawaii</option>
+          <option value="ID">Idaho</option>
+          <option value="IL">Illinois</option>
+          <option value="IN">Indiana</option>
+          <option value="IA">Iowa</option>
+          <option value="KS">Kansas</option>
+          <option value="KY">Kentucky</option>
+          <option value="LA">Louisiana</option>
+          <option value="ME">Maine</option>
+          <option value="MD">Maryland</option>
+          <option value="MA">Massachusetts</option>
+          <option value="MI">Michigan</option>
+          <option value="MN">Minnesota</option>
+          <option value="MS">Mississippi</option>
+          <option value="MO">Missouri</option>
+          <option value="MT">Montana</option>
+          <option value="NE">Nebraska</option>
+          <option value="NV">Nevada</option>
+          <option value="NH">New Hampshire</option>
+          <option value="NJ">New Jersey</option>
+          <option value="NM">New Mexico</option>
+          <option value="NY">New York</option>
+          <option value="NC">North Carolina</option>
+          <option value="ND">North Dakota</option>
+          <option value="OH">Ohio</option>
+          <option value="OK">Oklahoma</option>
+          <option value="OR">Oregon</option>
+          <option value="PA">Pennsylvania</option>
+          <option value="RI">Rhode Island</option>
+          <option value="SC">South Carolina</option>
+          <option value="SD">South Dakota</option>
+          <option value="TN">Tennessee</option>
+          <option value="TX">Texas</option>
+          <option value="UT">Utah</option>
+          <option value="VT">Vermont</option>
+          <option value="VA">Virginia</option>
+          <option value="WA">Washington</option>
+          <option value="WV">West Virginia</option>
+          <option value="WI">Wisconsin</option>
+          <option value="WY">Wyoming</option>
+        </select>				
         <button @click="fetchForecast" class="searchBtn">Search</button>
       </div>
-      <h2>{{location}}</h2>
+      <h2 class="location">{{location}}</h2>
       <div class="card-wrapper" >
-        <div class="card" v-for="weather in weatherData" :key="weather.list">
+        <div class="card" v-for="(weather, index) in weatherData" :key="weather.list" :class="{active:index===0}">
           <time>{{weather.dt_txt}}</time>
           <div class="status">
             <p class="temp">{{weather.main.temp}}</p>
@@ -31,21 +85,26 @@ export default {
       api_key : '4de4a8d80078d333a4a72f1c11d87820',
       forecast_url: 'https://api.openweathermap.org/data/2.5/',
       weatherData : [],
-      query: '',
-      location: '',
+      city_query: '',
+      state_query: '',
+      location : '',
     }
   },
   methods: {
     fetchForecast(){
-     fetch(`${this.forecast_url}forecast?q=${this.query},us&appid=${this.api_key}&units=imperial`)
-      .then(res => {
-        return res.json();
-      }).then(this.storeData);
+      if(!this.state_query == "" && !this.city_query == "" || !this.city_query == null){
+        fetch(`${this.forecast_url}forecast?q=${this.city_query},${this.state_query},us&appid=${this.api_key}&units=imperial`)
+          .then(res => {
+            return res.json();
+          }).then(this.storeData);
+        }
+      else {
+        alert('empty inptus');
+      }
     },
     storeData(data) {
       //clearing the data array when a new search is done
       this.weatherData = [];
-      this.location = data.city.name;
       //looping through the data.list to only return the 5 day forecast and not the data for every 3 hours
       for(var i = 0; i < data.list.length; i+=8){
         this.weatherData.push(data.list[i]);
@@ -53,10 +112,10 @@ export default {
       
       //looping through the weatherDate array to fix temps and dates
       for(var x = 0; x < this.weatherData.length; x++){
-        const temp = parseInt(this.weatherData[x].main.temp),
-              tempMin = parseInt(this.weatherData[x].main.temp_min),
-              tempMax = parseInt(this.weatherData[x].main.temp_max),
-              feelsLike = parseInt(this.weatherData[x].main.feels_like),
+        const temp = Math.round(this.weatherData[x].main.temp),
+              tempMin = Math.round(this.weatherData[x].main.temp_min),
+              tempMax = Math.round(this.weatherData[x].main.temp_max),
+              feelsLike = Math.round(this.weatherData[x].main.feels_like),
               date = new Date(this.weatherData[x].dt_txt.split(" ")[0]).toDateString().split(' 2020')[0];
 
         //replacing the icon from the api with an svg
@@ -82,7 +141,7 @@ export default {
         else if(this.weatherData[x].weather[0].icon == "11d" || this.weatherData[x].weather[0].icon == "11n"){
           this.weatherData[x].weather[0].icon = './assets/icn-thunderstorm.svg';
         }
-        
+        this.location = this.city_query + ', ' + this.state_query;
         this.weatherData[x].main.temp = temp;
         this.weatherData[x].main.temp_min = tempMin;
         this.weatherData[x].main.temp_max = tempMax;
@@ -109,9 +168,9 @@ export default {
     font-family: 'Lato', sans-serif;
     text-align: center;
     text-transform: capitalize;
-    color: #f5f5f5;
+    color: #0F110C;
     
-    background-color: #023e7d;  
+    background: linear-gradient(#70e1f5, #ffd194); 
   }
 
   #app {
@@ -189,6 +248,9 @@ export default {
     border: none;;
   }
 
+  .location {
+    text-transform: capitalize;
+  }
 
   .card-wrapper {
     width: 100%;  
@@ -200,7 +262,7 @@ export default {
     flex-wrap: wrap;    
     align-self: center;
 
-    color: #333;
+    color: #0F110C;
   }
 
   .card {
