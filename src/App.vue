@@ -1,3 +1,4 @@
+
 <template>
   <div id="app">
     <h1>5 day forecast</h1>
@@ -62,16 +63,18 @@
         <button @click="fetchForecast" class="searchBtn">Search</button>
       </div>
       <div class="card-wrapper" >
-        <div class="card" v-for="(weather, index) in weatherData" :key="weather.list" :class="`${weather.background}`">
+        <div class="card" v-for="(weather, index) in weatherData" :key="weather.list" :class="[{'current': index===0},`${weather.background}`]">
           <div class="card-header">
-            <p>{{weather.dt_txt}}</p>
+            <time>{{weather.dt_txt}}</time>
             <p v-if="index===0">{{location}}</p>
           </div>
           <div class="card-body">
             <p class="temp">{{weather.main.temp}}</p>
-            <img v-bind:src="require(`${weather.weather[0].icon}`)" class="status-icn" v-bind:alt="`${weather.dt_txt} ${weather.weather[0].description}`">
             <p>{{weather.weather[0].description}}</p>
+            <inline-svg :src="require(`${weather.weather[0].icon}`)"></inline-svg>
+            <p>{{weather.pop}}% chance of rain</p>
             <p class="temp">Feels like {{weather.main.feels_like}}</p>
+            <p>Humidity: {{weather.main.humidity}}%</p>
           </div>
         </div>
       </div>
@@ -81,8 +84,11 @@
 
 <script>   
 export default {
+  
   name: 'App',
   data (){
+    
+
     return {
       api_key : '4de4a8d80078d333a4a72f1c11d87820',
       forecast_url: 'https://api.openweathermap.org/data/2.5/',
@@ -111,51 +117,53 @@ export default {
       for(var i = 0; i < data.list.length; i+=8){
         this.weatherData.push(data.list[i]);
       }
+
       //looping through the weatherDate array to fix temps and dates
       for(var x = 0; x < this.weatherData.length; x++){
         const temp = parseInt(this.weatherData[x].main.temp),
               tempMin = parseInt(this.weatherData[x].main.temp_min),
               tempMax = parseInt(this.weatherData[x].main.temp_max),
               feelsLike = parseInt(this.weatherData[x].main.feels_like),
-              date = new Date(this.weatherData[x].dt_txt.split(" ")[0]).toDateString().split(' 2020')[0];
+              date = new Date(this.weatherData[x].dt_txt.split(" ")[0]).toDateString().split(' 2020')[0],
+              precip = (this.weatherData[x].pop * 100);
+              
 
         //replacing the icon from the api with an svg
         if(this.weatherData[x].weather[0].icon == "01d" || this.weatherData[x].weather[0].icon == "01n"){
           this.weatherData[x].weather[0].icon = './assets/icn-sunny.svg';
-          // this.weatherData[x].weather.addToObject('background', './assets/sunny.jpg')
-          this.weatherData[x].background = 'sunny';
+          this.weatherData[x].background = 'background---sunny';
         }
         
         else if(this.weatherData[x].weather[0].icon == "02d" || this.weatherData[x].weather[0].icon == "02n"){
           this.weatherData[x].weather[0].icon = './assets/icn-partly-cloudy.svg';
-          this.weatherData[x].background = 'partly-cloudy';
+          this.weatherData[x].background = 'background--partly-cloudy';
         }
 
         else if(this.weatherData[x].weather[0].icon == "03d" || this.weatherData[x].weather[0].icon == "03n" || this.weatherData[x].weather[0].icon == "04d" || this.weatherData[x].weather[0].icon == "04n") {
           this.weatherData[x].weather[0].icon = './assets/icn-cloudy.svg';
-          this.weatherData[x].background = 'cloudy';
+          this.weatherData[x].background = 'background--cloudy';
         }
 
         else if(this.weatherData[x].weather[0].icon == "09d" || this.weatherData[x].weather[0].icon == "09n"){
           this.weatherData[x].weather[0].icon = './assets/icn-light-rain.svg';
-          this.weatherData[x].background = 'lt-rain';
+          this.weatherData[x].background = 'background--lt-rain';
         }
 
         else if(this.weatherData[x].weather[0].icon == "10d" || this.weatherData[x].weather[0].icon == "10n"){
           this.weatherData[x].weather[0].icon = './assets/icn-hvy-rain.svg';
-          this.weatherData[x].background = 'hvy-rain';
+          this.weatherData[x].background = 'background--hvy-rain';
         }
         else if(this.weatherData[x].weather[0].icon == "11d" || this.weatherData[x].weather[0].icon == "11n"){
           this.weatherData[x].weather[0].icon = './assets/icn-thunderstorm.svg';
-          this.weatherData[x].background = 'thunderstorm.jpg';
+          this.weatherData[x].background = 'background--thunderstorm.jpg';
         }
         else if(this.weatherData[x].weather[0].icon == "13d" || this.weatherData[x].weather[0].icon == "13n"){
           this.weatherData[x].weather[0].icon = './assets/icn-snow.svg';
-          this.weatherData[x].background = '.snow';
+          this.weatherData[x].background = 'background--snow';
         }
         else if(this.weatherData[x].weather[0].icon == "50d" || this.weatherData[x].weather[0].icon == "50n"){
           this.weatherData[x].weather[0].icon = './assets/icn-fog.svg';
-          this.weatherData[x].background = 'fog';
+          this.weatherData[x].background = 'background--fog';
         }
         this.location = this.city_query + ', ' + this.state_query;
         this.weatherData[x].main.temp = temp;
@@ -163,6 +171,7 @@ export default {
         this.weatherData[x].main.temp_max = tempMax;
         this.weatherData[x].main.feels_like = feelsLike;
         this.weatherData[x].dt_txt = date;
+        this.weatherData[x].pop = precip;
       }
     }
   },
