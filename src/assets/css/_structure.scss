@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+
+    padding: 0;
+    margin: 0;
+
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    text-transform: capitalize;
+    color: #0F110C;
+    
+    background: linear-gradient(#70e1f5, #ffd194); 
+  }
+
+  #app {
+    min-height: 100%;
+    width: 90%;
+
+    margin: 0 auto;
+    padding: 1rem 0;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  section {
+    height: 100%;
+    width: 100%;
+
+    display: flex; 
+    flex-direction: column;
+  }
+
+  .sr-only {
+    position: absolute ;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    top: auto;
+    overflow: hidden;
+  }
