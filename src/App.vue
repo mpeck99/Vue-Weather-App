@@ -79,6 +79,9 @@
         </div>
       </div>
     </section> 
+    <footer>
+      <p>Icons made by <a href="https://www.flaticon.com/free-icon/cloud_3313884" title="bqlqn">bqlqn</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></p>
+    </footer>
   </div>
 </template>
 
