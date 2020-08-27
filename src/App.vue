@@ -133,39 +133,39 @@ export default {
 
         //replacing the icon from the api with an svg
         if(this.weatherData[x].weather[0].icon == "01d" || this.weatherData[x].weather[0].icon == "01n"){
-          this.weatherData[x].weather[0].icon = './assets/icn-sunny.svg';
+          this.weatherData[x].weather[0].icon = './assets/images/icn-sunny.svg';
           this.weatherData[x].background = 'background---sunny';
         }
         
         else if(this.weatherData[x].weather[0].icon == "02d" || this.weatherData[x].weather[0].icon == "02n"){
-          this.weatherData[x].weather[0].icon = './assets/icn-partly-cloudy.svg';
+          this.weatherData[x].weather[0].icon = './assets/images/icn-partly-cloudy.svg';
           this.weatherData[x].background = 'background--partly-cloudy';
         }
 
         else if(this.weatherData[x].weather[0].icon == "03d" || this.weatherData[x].weather[0].icon == "03n" || this.weatherData[x].weather[0].icon == "04d" || this.weatherData[x].weather[0].icon == "04n") {
-          this.weatherData[x].weather[0].icon = './assets/icn-cloudy.svg';
+          this.weatherData[x].weather[0].icon = './assets/images/icn-cloudy.svg';
           this.weatherData[x].background = 'background--cloudy';
         }
 
         else if(this.weatherData[x].weather[0].icon == "09d" || this.weatherData[x].weather[0].icon == "09n"){
-          this.weatherData[x].weather[0].icon = './assets/icn-light-rain.svg';
+          this.weatherData[x].weather[0].icon = './assets/images/icn-light-rain.svg';
           this.weatherData[x].background = 'background--lt-rain';
         }
 
         else if(this.weatherData[x].weather[0].icon == "10d" || this.weatherData[x].weather[0].icon == "10n"){
-          this.weatherData[x].weather[0].icon = './assets/icn-hvy-rain.svg';
+          this.weatherData[x].weather[0].icon = './assets/images/icn-hvy-rain.svg';
           this.weatherData[x].background = 'background--hvy-rain';
         }
         else if(this.weatherData[x].weather[0].icon == "11d" || this.weatherData[x].weather[0].icon == "11n"){
-          this.weatherData[x].weather[0].icon = './assets/icn-thunderstorm.svg';
+          this.weatherData[x].weather[0].icon = './assets/images/icn-thunderstorm.svg';
           this.weatherData[x].background = 'background--thunderstorm.jpg';
         }
         else if(this.weatherData[x].weather[0].icon == "13d" || this.weatherData[x].weather[0].icon == "13n"){
-          this.weatherData[x].weather[0].icon = './assets/icn-snow.svg';
+          this.weatherData[x].weather[0].icon = './assets/images/icn-snow.svg';
           this.weatherData[x].background = 'background--snow';
         }
         else if(this.weatherData[x].weather[0].icon == "50d" || this.weatherData[x].weather[0].icon == "50n"){
-          this.weatherData[x].weather[0].icon = './assets/icn-fog.svg';
+          this.weatherData[x].weather[0].icon = './assets/images/icn-fog.svg';
           this.weatherData[x].background = 'background--fog';
         }
         this.location = this.city_query + ', ' + this.state_query;

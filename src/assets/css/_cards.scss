@@ -1,3 +1,4 @@
+  @import 'variables';
 
   .location {
     text-transform: capitalize;
@@ -13,11 +14,8 @@
     align-self: center;
 
     margin-top: 3rem;
-    
-    background-color: #f5f5f5;
-    border-radius: 0.25rem;
 
-    color: #0F110C;
+    color: $black;
   }
 
   .card {
@@ -30,7 +28,7 @@
 
     padding: 1rem;
 
-    color: #f5f5f5;
+    color: $white;
 
     background-size: cover;
     background-position: center;
@@ -42,7 +40,7 @@
 
     .icn {
     
-      fill: #f5f5f5;
+      fill: $white;
     }
 
     .temp {
@@ -58,6 +56,9 @@
       align-items: flex-start;
 
       text-align: left;
+
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
 
       .card-body {
         width: 100%;
@@ -75,8 +76,8 @@
     }
 
     &:not(.current) {
-      border-right: 1px #e3e3e2 solid;
-
+      border-right: 1px $greylt solid;
+ sol
       &:last-child {
         border-right: none;
       }
@@ -109,48 +110,52 @@
       background-position: center;
 
       &.background--sunny {
-        background-image: url("~@/assets/sunny.jpg");
+        background-image: url("~@/assets/images/sunny.jpg");
       }
   
       &.background--cloudy {
-        background-image: url("~@/assets/cloudy.jpg");
+        background-image: url("~@/assets/images/cloudy.jpg");
       }
   
       &.background--partly-cloudy {
-        background-image: url("~@/assets/partly-cloudy.jpg");
+        background-image: url("~@/assets/images/partly-cloudy.jpg");
       }
   
       &.background--lt-rain {
-        background-image: url("~@/assets/light-rain.jpg");
+        background-image: url("~@/assets/images/light-rain.jpg");
       }
 
       &.background--hvy-rain {
-        background-image: url("~@/assets/hvy-rain.jpg");
+        background-image: url("~@/assets/images/hvy-rain.jpg");
       }
 
       &.background--snow {
-        background-image: url("~@/assets/snow.jpg");
+        background-image: url("~@/assets/images/snow.jpg");
       }
 
       &.background--fog {
-        background-image: url("~@/assets/fog.jpg");
+        background-image: url("~@/assets/images/fog.jpg");
       }
 
       &.background--thunderstorm {
-        background-image: url("~@/assets/thunderstorm.jpg");
+        background-image: url("~@/assets/images/thunderstorm.jpg");
       }
     }
 
     &:nth-of-type(2) {
-      background-color: #EB4B98;
+      background-color: $blue;
     }
     &:nth-of-type(3) {
-      background-color: #276FBF;
+      background-color: $coral;
     }
     &:nth-of-type(4) {
-      background-color: #F18F01;
+      background-color: $yellow;
     }
     &:nth-of-type(5) {
-      background-color: #3B429F;
+      background-color: $teal;
+
+      border-right: none;
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
     }
   }

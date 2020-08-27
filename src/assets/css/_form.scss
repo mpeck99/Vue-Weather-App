@@ -1,3 +1,5 @@
+@import 'variables';
+
 .form-group {
     max-width: 90%;
 
@@ -24,24 +26,24 @@
       border: none;
 
       text-transform: capitalize;
-      color: #767676;
+      color: $greymd;
     }
 
     select {
       border: none;
-      border-left: #e3e3e2 solid 1px;
+      border-left: $greylt solid 1px;
 
-      color: #767676;
+      color: $greymd
     }
 
     button {
       height: 2.5rem;
       width: 5.5rem;
 
-      color: #f5f5f5;
+      color: $white;
       font-size: 1rem;
       
-      background-color: #EB4B98;
+      background-color: $coral;
       border-radius: 0.25rem;
       border-bottom-left-radius: 0;
       border-top-left-radius: 0;
