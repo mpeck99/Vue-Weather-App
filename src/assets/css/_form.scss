@@ -58,3 +58,12 @@
       border: none;;
     }
   }
+
+  .error {
+    display: none;
+
+    &.error-show {
+      display: block;
+      margin: 1rem;
+    }
+  }
