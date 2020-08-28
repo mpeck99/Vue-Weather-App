@@ -123,14 +123,21 @@ export default {
           .then(this.storeData)
           .catch (err => {
               if(this.error === 404){
-                this.error === 'Oops looks like something went wrong. Please try again';
+                this.error = 'Oops looks like something went wrong. Please try again';
                 console.error('Error:',err);
               }
             }
           )
         }
       else {
-        alert('empty inptus');
+        if(this.city_query == ''|| this.city_query == ' '|| this.city_query == null ){
+          this.error = 'Please enter a city';
+        }
+        else if(this.state_query == '' || this.state_query == ' ' || this.state_query == 'state'){
+          this.error = 'Please enter a state';
+        }
+        
+      
       }
     },
     storeData(data) {
