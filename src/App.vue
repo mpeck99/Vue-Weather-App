@@ -136,7 +136,7 @@ export default {
         //replacing the icon from the api with an svg
         if(this.weatherData[x].weather[0].icon == "01d" || this.weatherData[x].weather[0].icon == "01n"){
           this.weatherData[x].weather[0].icon = './assets/images/icn-sunny.svg';
-          this.weatherData[x].background = 'background---sunny';
+          this.weatherData[x].background = 'background--sunny';
         }
         
         else if(this.weatherData[x].weather[0].icon == "02d" || this.weatherData[x].weather[0].icon == "02n"){
