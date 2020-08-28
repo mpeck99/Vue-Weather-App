@@ -68,15 +68,15 @@
         :class="[index===0 ? 'js-big current' : 'js-small',`${weather.background}`]">
           <div class="card-header">
             <time>{{weather.dt_txt}}</time>
-            <p v-if="index===0">{{location}}</p>
+            <p class="location">{{location}}</p>
           </div>
           <div class="card-body">
-            <p class="temp">{{weather.main.temp}}</p>
-            <p>{{weather.weather[0].description}}</p>
+            <p class="temp main-temp">{{weather.main.temp}}</p>
+            <p class="description">{{weather.weather[0].description}}</p>
             <inline-svg :src="require(`${weather.weather[0].icon}`)"></inline-svg>
-            <p>{{weather.pop}}% chance of rain</p>
-            <p class="temp">Feels like {{weather.main.feels_like}}</p>
-            <p>Humidity: {{weather.main.humidity}}%</p>
+            <p class="precip">{{weather.pop}}% chance of rain</p>
+            <p class="temp feels-temp">Feels like {{weather.main.feels_like}}</p>
+            <p class="humidity">Humidity: {{weather.main.humidity}}%</p>
           </div>
         </div>
       </div>
