@@ -24,9 +24,17 @@
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       border: none;
+      background-color: #fff;
 
       text-transform: capitalize;
       color: $greymd;
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover, 
+      &:-webkit-autofill:focus, 
+      &:-webkit-autofill:active  {
+          -webkit-box-shadow: 0 0 0 30px white inset !important;
+      }
     }
 
     select {

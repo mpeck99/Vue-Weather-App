@@ -178,13 +178,34 @@ export default {
         this.weatherData[x].dt_txt = date;
         this.weatherData[x].pop = precip;
       }
-    }
+    },
+    onHover(item){
+      var currentDate = document.querySelector('.current'),   card = document.querySelectorAll('.card');
+      if(item.target.classList.contains('js-small') ){
+        for(var i = 0; i < card.length; i++){
+          card[i].classList.remove('js-big');
+          card[i].classList.add('js-small');
+        }
+        item.target.classList.remove('js-small');
+        item.target.classList.add('js-big');
+        if(currentDate.classList.contains('js-big')){
+          currentDate.classList.remove('js-big');
+          currentDate.classList.add('js-small');
+        }
+      }
+
+      if(item.target.classList.contains('current') && item.target.classList.contains('js-small')){
+        item.target.classList.add('js-big');
+        item.target.classList.remove('js-small');
+      }
+
+    },
   },
 }
 </script>
 
 <style lang="scss">
- 
+
 @import "./assets/css/styles.scss";
 
 </style>
