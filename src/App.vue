@@ -64,7 +64,8 @@
         <button @click="fetchForecast" class="searchBtn">Search</button>
       </div>
       <div class="card-wrapper" >
-        <div class="card" v-for="(weather, index) in weatherData" :key="weather.list" :class="[{'current': index===0},`${weather.background}`]">
+        <div class="card" v-for="(weather, index) in weatherData" :key="weather.list" @mouseenter="onHover"
+        :class="[index===0 ? 'js-big current' : 'js-small',`${weather.background}`]">
           <div class="card-header">
             <time>{{weather.dt_txt}}</time>
             <p v-if="index===0">{{location}}</p>
