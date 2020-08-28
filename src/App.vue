@@ -6,7 +6,8 @@
       <div class="form-group">
         <label for="search" class="sr-only">Location</label>
         <input type="text" name="search" id="search" placeholder="City" v-model="city_query" @keyup.enter="fetchForecast">
-        <select v-model="state_query" @keyup.enter="fetchForecast" placeholder="State">
+        <label for="state" class="sr-only">Select state</label>
+        <select v-model="state_query" @keyup.enter="fetchForecast" id="state" name="state" placeholder="State">
           <option value="" class="disabled selected">State</option>
           <option value="AL">Alabama</option>
           <option value="AK">Alaska</option>
