@@ -37,8 +37,45 @@
     }
 
     .icn {
-    
       fill: $white;
+
+      &.icn-sunny .rays {
+        transform-origin: 50% 50%;
+  perspective: 500px;
+ 
+        animation: sun 8s infinite linear;
+        @keyframes sun {
+          from {transform:rotate(0deg);}
+          to {transform:rotate(360deg);}
+          // 0% {
+          //   transform: rotate(0deg);
+          // }
+          // 12% {
+          //   transform: rotate(32deg);
+          // }
+          // 24% {
+          //   transform: rotate(64deg);
+          // }
+          // 36% {
+          //   transform: rotate(96deg);
+          // }
+          // 48% {
+          //   transform: rotate(128deg);
+          // }
+          // 60% {
+          //   transform: rotate(160deg);
+          // }
+          // 72% {
+          //   transform: rotate(192deg);
+          // }
+          // 84% {
+          //   transform: rotate(224deg);
+          // }
+          // 100% {
+          //   transform: rotate(360deg);
+          // }
+        }
+      }
     }
 
     .temp {
