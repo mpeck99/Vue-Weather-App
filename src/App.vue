@@ -63,6 +63,9 @@
         </select>				
         <button @click="fetchForecast" class="searchBtn">Search</button>
       </div>
+      <div v-if="error !== null || 'undefined'" :class="[{'error-show': error !=null}, 'error']">
+        <p>{{error}}</p>
+      </div>
       <div class="card-wrapper" >
         <div class="card" v-for="(weather, index) in weatherData" :key="weather.list" @mouseenter="onHover"
         :class="[index===0 ? 'js-big current' : 'js-small',`${weather.background}`]">
@@ -82,7 +85,8 @@
       </div>
     </section> 
     <footer>
-      <p>Icons made by <a href="https://www.flaticon.com/free-icon/cloud_3313884" title="bqlqn">bqlqn</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></p>
+      <p>Images from <a href="unsplash.com" title="Unsplash, photos for everyone" target="_blank">unsplash.com</a></p>
+      <p>Icons made by <a href="https://www.flaticon.com/free-icon/cloud_3313884" title="bqlqn" target="_blank">bqlqn</a> from <a href="https://www.flaticon.com/" target="_blank" title="Flaticon"> www.flaticon.com</a></p>
     </footer>
   </div>
 </template>
@@ -93,7 +97,6 @@ export default {
   name: 'App',
   data (){
     
-
     return {
       api_key : '4de4a8d80078d333a4a72f1c11d87820',
       forecast_url: 'https://api.openweathermap.org/data/2.5/',
@@ -101,15 +104,30 @@ export default {
       city_query: '',
       state_query: '',
       location : '',
+      error: null,
     }
   },
   methods: {
     fetchForecast(){
+      this.error = null;
       if(!this.state_query == "" && !this.city_query == "" || !this.city_query == null){
-        fetch(`${this.forecast_url}forecast?q=${this.city_query},US&appid=${this.api_key}&units=imperial`)
+        fetch(`${this.forecast_url}forecast?q=${this.city_query},${this.state_query},US&appid=${this.api_key}&units=imperial`)
           .then(res => {
-            return res.json();
-          }).then(this.storeData);
+            if(!res.ok){
+              this.error = res.status;
+            }
+            else {
+              return res.json()
+            }
+          })
+          .then(this.storeData)
+          .catch (err => {
+              if(this.error === 404){
+                this.error === 'Oops looks like something went wrong. Please try again';
+                console.error('Error:',err);
+              }
+            }
+          )
         }
       else {
         alert('empty inptus');
@@ -119,7 +137,8 @@ export default {
       //clearing the data array when a new search is done
       this.weatherData = [];
       //looping through the data.list to only return the 5 day forecast and not the data for every 3 hours
-      for(var i = 0; i < data.list.length; i+=8){
+      if(data.list != null) {
+          for(var i = 0; i < data.list.length; i+=8){
         this.weatherData.push(data.list[i]);
       }
 
@@ -178,6 +197,8 @@ export default {
         this.weatherData[x].dt_txt = date;
         this.weatherData[x].pop = precip;
       }
+      } 
+    
     },
     onHover(item){
       var currentDate = document.querySelector('.current'),   card = document.querySelectorAll('.card');
