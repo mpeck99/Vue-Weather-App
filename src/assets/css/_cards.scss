@@ -1,24 +1,31 @@
   @import 'variables';
+  @import 'mixins';
 
   .location {
     text-transform: capitalize;
   }
 
-  .card-wrapper {
-    width: auto;  
+  .card-wrapper { 
+    width: 100%; 
     height: 100%;
 
     display: flex;
-    justify-content: center;
-    align-items: center;   
-    align-self: center;
+    flex-direction: column;
+    justify-content: flex-start; 
 
     margin-top: 3rem;
 
     color: $black;
+
+    @include tablet {
+      justify-content: center;
+      flex-direction: row;
+    }
   }
 
   .card {
+    width: 40rem;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,39 +48,12 @@
 
       &.icn-sunny .rays {
         transform-origin: 50% 50%;
-  perspective: 500px;
+        perspective: 500px;
  
         animation: sun 8s infinite linear;
         @keyframes sun {
           from {transform:rotate(0deg);}
           to {transform:rotate(360deg);}
-          // 0% {
-          //   transform: rotate(0deg);
-          // }
-          // 12% {
-          //   transform: rotate(32deg);
-          // }
-          // 24% {
-          //   transform: rotate(64deg);
-          // }
-          // 36% {
-          //   transform: rotate(96deg);
-          // }
-          // 48% {
-          //   transform: rotate(128deg);
-          // }
-          // 60% {
-          //   transform: rotate(160deg);
-          // }
-          // 72% {
-          //   transform: rotate(192deg);
-          // }
-          // 84% {
-          //   transform: rotate(224deg);
-          // }
-          // 100% {
-          //   transform: rotate(360deg);
-          // }
         }
       }
     }
@@ -131,36 +111,60 @@
 
     &:first-of-type{
       border-top-left-radius: 0.25rem;
-      border-bottom-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
 
       &:after {
         border-top-left-radius: 0.25rem;
-        border-bottom-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
       }
+
+      @include tablet {
+        border-top-left-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem;
+      
+        &:after {
+          border-top-left-radius: 0.25rem;
+          border-bottom-left-radius: 0.25rem;
+        }
+    }
     }
 
     &:last-of-type {
-      border-top-right-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
       border-bottom-right-radius: 0.25rem;
       
       &:after {
-        border-top-right-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem;
         border-bottom-right-radius: 0.25rem;
+      }
+
+        @include tablet {
+          border-top-right-radius: 0.25rem;
+          border-bottom-right-radius: 0.25rem;
+        
+          &:after {
+            border-top-right-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
+          }
       }
     }
 
     &.js-big {
-      align-items: flex-start;
-
-      text-align: left;
-
-      height: 25rem;
-      width: 20rem;
-
+      height: 30rem;
+      width: 100%;
+      
       position: relative;
     
       background-size: cover;  
       background-position: center;
+
+      align-items: flex-start;
+      text-align: left;
+
+      @include tablet {
+        width: 40rem;
+        min-width: 20rem;
+      }
 
       &:after {
         content: '';
@@ -229,10 +233,14 @@
     }
 
     &.js-small {
-      width: 5rem;
-      height: 25rem;
-
+      width: 100%;
+      
       border-right: 1px $greylt solid;
+
+      @include tablet{
+        width: 5rem;
+        height: 30rem;
+      }
       
       &:last-child {
         border-right: none;
@@ -243,17 +251,26 @@
       }
 
       .card-header {
-        height: 100%;
-
+        width: 100%;
+        
         display: flex;
         justify-content: center;
         align-items: center;
- 
-        time{
-          display: block;
+        
 
-          writing-mode: vertical-rl;
+        time {
+          @include tablet {
+            display: block;
+            transform-origin: center center;
+            transform: rotate(90deg);
+            white-space: nowrap;
+            flex: 1 0 auto;
+          } 
         }
+
+        @include tablet {
+          height: 100%;
+        }       
 
         .location {
           display: none;
