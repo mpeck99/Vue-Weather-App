@@ -110,6 +110,7 @@ export default {
   methods: {
     fetchForecast(){
       this.error = null;
+
       if(!this.state_query == "" && !this.city_query == "" || !this.city_query == null){
         fetch(`${this.forecast_url}forecast?q=${this.city_query},${this.state_query},US&appid=${this.api_key}&units=imperial`)
           .then(res => {
